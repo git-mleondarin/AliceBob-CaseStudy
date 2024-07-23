@@ -19,3 +19,13 @@ docker run -d -p 8080:80 my-nginx-image
 # Vous pouvez alors accéder au serveur nginx fonctionnant dans le conteneur en visitant http://localhost:8080 dans votre navigateur web.
 # Assurez-vous de remplacer /path/to/mleondarin-website par le chemin réel de votre répertoire contenant le contenu que vous voulez utiliser.
 
+# Créer un fichier de configuration prometheus.yml (contenu dans le repo)
+# Exécuter le conteneur Prometheus à l'aide de la commande suivante :
+docker run -d -p 9090:9090 --name prometheus -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+
+# Exécuter le conteneur Grafana en utilisant la commande suivante :
+docker run -d -p 3000:3000 --name grafana grafana/grafana
+
+# Accédez à Grafana dans votre navigateur Web à l'adresse http://localhost:3000 et configurez-le pour qu'il se connecte à Prometheus en tant que source de données. Vous pouvez créer des tableaux de bord dans Grafana pour visualiser les mesures collectées par Prometheus et Node Exporter.
+# Dans Grafana, vous pouvez créer des tableaux de bord pour surveiller des mesures telles que l'utilisation de la RAM, l'utilisation du CPU, le stockage, etc. pour votre conteneur nginx et la machine hôte.
+
