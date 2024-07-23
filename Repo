@@ -1,0 +1,21 @@
+# Créez un répertoire sur votre machine hôte qui contiendra le contenu qui sera utilisé. Disons que le répertoire s'appelle mleondarin-website et qu'il est situé dans /path/to/mleondarin-website sur votre machine hôte.
+# Créez un fichier Docker dans le même répertoire que celui où se trouve votre répertoire mleondarin-website. Le fichier Docker doit avoir le contenu suivant :
+
+# Utiliser l'image officielle de nginx comme image de base 
+FROM nginx
+
+# Copier le contenu du répertoire local dans le conteneur à /usr/share/nginx/html
+COPY /path/to/mleondarin-website /usr/share/nginx/html
+
+# Ouvrir le port 80 pour autoriser le trafic HTTP entrant
+EXPOSE 80
+
+# Construisez l'image Docker en utilisant la commande suivante dans le terminal :
+docker build -t my-nginx-image .
+
+# Exécutez un conteneur Docker basé sur l'image que vous venez de construire à l'aide de la commande suivante :
+docker run -d -p 8080:80 my-nginx-image
+
+# Vous pouvez alors accéder au serveur nginx fonctionnant dans le conteneur en visitant http://localhost:8080 dans votre navigateur web.
+# Assurez-vous de remplacer /path/to/mleondarin-website par le chemin réel de votre répertoire contenant le contenu que vous voulez utiliser.
+
