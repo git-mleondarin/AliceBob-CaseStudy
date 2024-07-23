@@ -38,3 +38,27 @@ docker run -d -p 443:443 -v /path/to/nginx-proxy.conf:/etc/nginx/conf.d/default.
 
 # Remplacez nginx-container-ip par l'adresse IP de votre conteneur nginx, nginx-container-name par le nom de votre conteneur nginx, et mettez à jour les chemins d'accès au certificat SSL et aux fichiers clés.
 # Vous pouvez maintenant accéder au contenu de votre serveur nginx via HTTPS en visitant https://example.com dans votre navigateur web (remplacez example.com par votre nom de domaine ou votre adresse IP).
+
+# Installer un serveur SSH dans le conteneur de surveillance en exécutant la commande suivante à l'intérieur du conteneur :
+apt-get update
+apt-get install openssh-server
+
+# Optimiser la configuration SSH :
+- Modifiez le fichier de configuration du serveur SSH /etc/ssh/sshd_config pour améliorer la sécurité. Voici quelques paramètres qu'il est recommandé de modifier dans le fichier de configuration :
+  * Modifier le port SSH : Changez le port SSH par défaut (22) pour un port personnalisé afin de réduire les attaques automatisées.
+  * Désactiver la connexion à la racine : Définissez PermitRootLogin no pour désactiver la connexion à la racine via SSH.
+  * Utiliser les clés SSH : Désactiver l'authentification par mot de passe et utiliser les clés SSH pour l'authentification.
+  * Limiter l'accès des utilisateurs : Utilisez AllowUsers pour spécifier quels utilisateurs peuvent accéder au serveur SSH.
+  * Activer l'authentification à deux facteurs : Si possible, activez l'authentification à deux facteurs pour l'accès SSH.
+
+# Redémarrer le service SSH :
+service ssh restart
+
+# Accès au conteneur de surveillance via SSH :
+- Vous pouvez maintenant accéder au conteneur de surveillance via SSH en utilisant l'adresse IP ou le nom d'hôte du conteneur et le port personnalisé que vous avez spécifié dans la configuration SSH.
+
+# Considérations de sécurité :
+- Assurez-vous que seuls les utilisateurs autorisés ont accès au conteneur de surveillance via SSH.
+- Maintenez le serveur SSH et le conteneur de surveillance à jour avec les derniers correctifs de sécurité.
+- Surveillez les journaux SSH pour détecter toute activité suspecte.
+- Envisager des mesures de sécurité supplémentaires telles que fail2ban pour se protéger contre les attaques par force brute.
